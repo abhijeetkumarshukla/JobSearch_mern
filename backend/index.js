@@ -15,7 +15,9 @@ app.use('/user',userRouter);
 app.use('/job',jobRouter)
 app.use('/company',companyRouter)
 
- 
+ app.get('/',(req,res)=>{
+   res.send({message:`hello admin`})
+ })
 
 app.listen(PORT, async() =>{
      try {
