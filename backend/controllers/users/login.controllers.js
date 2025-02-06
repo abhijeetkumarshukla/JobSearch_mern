@@ -15,7 +15,7 @@ const userLogin = async (req,res)=>{
                 }
                 if(result){
                    const token = jwt.sign({email:user.email ,userID:user._id, role: user.role},process.env.SECRET_KEY)
-                   res.status(200).json({message:`login done.`,  token:token})
+                   res.status(200).json({message:`login done.`,  token:token, role:user.role, userId:user._id})
                 }
              })
          }else{

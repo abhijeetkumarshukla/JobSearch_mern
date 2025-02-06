@@ -2,6 +2,7 @@ const jwt = require('jsonwebtoken');
 
  const  RbacAuth  = (req, res, next) => {
     const token = req.headers.authorization?.split(" ")[1];
+    console.log("token==> ", token)
     console.log(token, req.headers)
     if (!token) return res.status(401).json({ message: "Access Denied" });
 
@@ -10,6 +11,7 @@ const jwt = require('jsonwebtoken');
         const decoded = jwt.verify(token, process.env.SECRET_KEY);
         
         req.body.user = decoded; 
+        console.log("decoded=> ", decoded)
         if(decoded.role!=="recruiter"){
 
             

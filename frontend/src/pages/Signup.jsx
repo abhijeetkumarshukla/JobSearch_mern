@@ -1,16 +1,18 @@
 import axios from 'axios';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Navbar from '../components/Navbar';
+
 
 const Signup = () => {
+  const BASEURL= import.meta.env.VITE_BASEURL
+  console.log("BASEURL=> ", BASEURL)
     const navigate = useNavigate();
   const [isTrue, setIsTrue] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     password: "",
-    role: "",
+    role: "jobseeker",
   });
 
   const onClickBTN = (userRole) => {
@@ -27,7 +29,7 @@ const Signup = () => {
     e.preventDefault();
     try {
       const res = await axios.post(
-        "http://localhost:5000/user/register",
+`${BASEURL}user/register`,
         formData
       );
       console.log("res=?> ", res);
@@ -42,61 +44,71 @@ const Signup = () => {
 
   return (
     <>
-     <Navbar/>
-    <div className="flex justify-center items-center min-h-screen bg-gray-100">
-      <div className="bg-white shadow-lg rounded-lg p-6 w-96">
-        <div className="flex justify-center space-x-4 mb-4">
-          <button
-            className={`px-4 py-2 rounded-lg transition-all duration-300 ${
-    isTrue ? "bg-gray-300" : "bg-blue-500 text-white" 
-}`}
-            onClick={() => onClickBTN("jobseeker")}
-          >
-            Jobseeker
-          </button>
-          <button
-            className={`px-4 py-2 rounded-lg transition-all duration-300 ${
-    isTrue ? "bg-blue-500 text-white" : "bg-gray-300" 
-  }`}
-  onClick={() => onClickBTN("recruiter")}
-  >
-            Recruiter
-          </button>
-        </div>
-        <h1 className="text-xl font-semibold text-center mb-4">
-          Continue as {isTrue ? "Recruiter" : "Jobseeker"}
-        </h1>
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <input
-            type="text"
-            placeholder="Name"
-            name="name"
-            onChange={handleChange}
-            className="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
-            />
-          <input
-            type="email"
-            placeholder="Email"
-            name="email"
-            onChange={handleChange}
-            className="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
-          />
-          <input
-            type="password"
-            placeholder="Password"
-            name="password"
-            onChange={handleChange}
-            className="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
-            />
-          <button
-            type="submit"
-            className="w-full bg-blue-500 text-white p-2 rounded-lg hover:bg-blue-600 transition-all"
-          >
-            Signup
-          </button>
-        </form>
-      </div>
+     
+     <div className="flex min-h-screen bg-slate-900 items-center justify-center">
+  <div className="bg-slate-950 bg-opacity-70 shadow-lg rounded-lg p-6 w-96">
+    <div className="flex justify-center space-x-4 mb-6">
+      <button
+        className={`px-4 py-2 rounded-lg transition-all duration-300 ${
+          isTrue ? "bg-slate-700 text-white" : "bg-purple-500 text-white"
+        }`}
+        onClick={() => onClickBTN("jobseeker")}
+      >
+        Jobseeker
+      </button>
+      <button
+        className={`px-4 py-2 rounded-lg transition-all duration-300 ${
+          isTrue ? "bg-purple-500 text-white" : "bg-slate-700 text-white"
+        }`}
+        onClick={() => onClickBTN("recruiter")}
+      >
+        Recruiter
+      </button>
     </div>
+    <h1 className="text-xl font-semibold text-white text-center mb-4">
+      Continue as {isTrue ? "Recruiter" : "Jobseeker"}
+    </h1>
+    <form onSubmit={handleSubmit} className="space-y-4">
+      <div className="w-full bg-slate-800 bg-opacity-70 flex items-center gap-3 px-4 py-3 rounded-lg">
+        <input
+          type="text"
+          placeholder="Name"
+          name="name"
+          onChange={handleChange}
+          className="w-full bg-transparent text-white placeholder-gray-500 focus:outline-none"
+          required
+        />
+      </div>
+      <div className="w-full bg-slate-800 bg-opacity-70 flex items-center gap-3 px-4 py-3 rounded-lg">
+        <input
+          type="email"
+          placeholder="Email"
+          name="email"
+          onChange={handleChange}
+          className="w-full bg-transparent text-white placeholder-gray-500 focus:outline-none"
+          required
+        />
+      </div>
+      <div className="w-full bg-slate-800 bg-opacity-70 flex items-center gap-3 px-4 py-3 rounded-lg">
+        <input
+          type="password"
+          placeholder="Password"
+          name="password"
+          onChange={handleChange}
+          className="w-full bg-transparent text-white placeholder-gray-500 focus:outline-none"
+          required
+        />
+      </div>
+      <button
+        type="submit"
+        className="cursor-pointer w-full bg-purple-700 text-white flex justify-center items-center rounded-lg h-10 p-2 py-3 hover:bg-purple-800 transition-all"
+      >
+        Signup
+      </button>
+    </form>
+  </div>
+</div>
+
             </>
   );
 };

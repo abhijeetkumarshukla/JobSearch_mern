@@ -6,6 +6,7 @@ const JobSchema = new mongoose.Schema({
     location:{type:String, required:true },
     jobType:{type:String, required:true },
     description: {type:String, required:true },
+    
     postedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User',  required:true }
 });
 
